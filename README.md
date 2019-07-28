@@ -1,1 +1,1 @@
-# scholars-embed-lib
+# scholars-embed-utilities
