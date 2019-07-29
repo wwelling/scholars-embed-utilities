@@ -41,8 +41,8 @@ const getParsedTemplateFunction = (template: string, additionalContext: any = {}
     return getTemplateFunction(template, additionalContext);
 };
 
-const initializeTemplateHelpers = () => {
-    registerHelper('formalize', (value) => formalize(value));
+const initializeTemplateHelpers = (mapping: any = {}) => {
+    registerHelper('formalize', (value) => formalize(value, mapping));
 
     registerHelper('replace', (value, arg1, arg2) => {
         if (Array.isArray(value)) {
