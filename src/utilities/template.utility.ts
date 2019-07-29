@@ -94,7 +94,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     });
 
     registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
-        function positionSorter(labelCheck) {
+        const positionSorter = (labelCheck) => {
             return (a, b) => {
                 if (a.label === labelCheck) {
                     return -1;
@@ -103,7 +103,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
                 }
                 return 0;
             };
-        }
+        };
         positions = positions.sort(positionSorter(hrJobTitle));
         let out = '';
         for (const i in positions) {
@@ -132,7 +132,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return renderSubsection(resource);
     });
 
-    registerHelper('when', (leftOperand, operator, rightOperand, options) => {
+    registerHelper('when', function (leftOperand, operator, rightOperand, options) {
         const operators = {
             '==': (l, r) => l === r,
             '!=': (l, r) => l !== r,
