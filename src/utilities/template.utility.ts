@@ -55,7 +55,14 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value.replace(arg1, arg2);
     });
 
-    registerHelper('toYear', (value) => value !== undefined ? new Date(value).getFullYear() : value);
+    registerHelper('toYear', (value) => {
+        if (value !== undefined) {
+            const date = new Date(value);
+            date.setDate(date.getDate() + 1);
+            value = date.getFullYear();
+        }
+        return value;
+    });
 
     registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
 
