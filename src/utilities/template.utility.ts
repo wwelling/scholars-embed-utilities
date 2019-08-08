@@ -58,7 +58,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     registerHelper('toYear', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
-            value = Number(date.getFullYear());
+            value = Number(date.getUTCFullYear());
         }
         return value;
     });
