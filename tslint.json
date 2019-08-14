@@ -4,6 +4,10 @@
     ],
     "rules": {
         "interface-name": false,
+        "max-line-length": [
+            true,
+            256
+        ],
         "ordered-imports": false,
         "quotemark": [
             true,

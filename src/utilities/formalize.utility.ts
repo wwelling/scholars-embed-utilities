@@ -11,5 +11,5 @@ export const formalize = (input: string | string[], mapping: any = {}) => {
             input = mapping[key];
         }
     }
-    return input ? (input as string).replace(/([A-Z]+[a-z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()) : '';
+    return input ? (input as string).replace(/(?<!\()([A-Z]+[a-z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()) : '';
 };
