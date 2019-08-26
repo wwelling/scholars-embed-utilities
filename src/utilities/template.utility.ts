@@ -120,6 +120,28 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
+    registerHelper('eachSorted', (resources, field, direction, isDate, options) => {
+        direction = (direction !== undefined && direction.toLowerCase() === 'asc') ? [1, -1] : [-1, 1];
+        resources = resources.sort((r1, r2) => {
+            const v1 = isDate ? new Date(r1[field]) : r1[field];
+            const v2 = isDate ? new Date(r2[field]) : r2[field];
+            if (v1 > v2) {
+                return direction[0];
+            }
+            if (v1 < v2) {
+                return direction[1];
+            }
+            return 0;
+        });
+        let out = '';
+        for (const i in resources) {
+            if (resources.hasOwnProperty(i)) {
+                out += options.fn(resources[i]);
+            }
+        }
+        return out;
+    });
+
     registerHelper('subsectionPage', (resources, page, options) => {
         const pageStart = (page.number - 1) * page.size;
         const pageEnd = pageStart + page.size;
