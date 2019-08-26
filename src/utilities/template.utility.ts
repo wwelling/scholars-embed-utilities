@@ -121,7 +121,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     });
 
     registerHelper('eachSorted', (resources, field, direction, isDate, options) => {
-        direction = (direction !== undefined && direction.toLowerCase() === 'asc') ? [1, -1] : [-1, 1];
+        direction = (direction && direction.toLowerCase() === 'asc') ? [1, -1] : [-1, 1];
         resources = resources.sort((r1, r2) => {
             const v1 = isDate ? new Date(r1[field]) : r1[field];
             const v2 = isDate ? new Date(r2[field]) : r2[field];
