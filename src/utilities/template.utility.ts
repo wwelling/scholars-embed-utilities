@@ -142,7 +142,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('subsectionPage', (resources, page, options) => {
+    registerHelper('sectionPage', (resources, page, options) => {
         const pageStart = (page.number - 1) * page.size;
         const pageEnd = pageStart + page.size;
         resources = resources.slice(pageStart, pageEnd);
@@ -155,9 +155,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('subsectionItem', (resource, subsection) => {
-        const renderSubsection = compile(subsection.template);
-        return renderSubsection(resource);
+    registerHelper('sectionItem', (resource, section) => {
+        const renderSection = compile(section.template);
+        return renderSection(resource);
     });
 
     registerHelper('when', function (leftOperand, operator, rightOperand, options) {
