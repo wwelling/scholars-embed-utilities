@@ -1,6 +1,6 @@
 {
   "name": "scholars-embed-utilities",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Embed utilities for Scholars Discovery UI clients",
   "private": false,
   "main": "lib/index.js",
@@ -25,11 +25,11 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "handlebars": "4.1.2",
+    "handlebars": "4.2.0",
     "handlebars-loader": "1.7.1"
   },
   "devDependencies": {
-    "tslint": "5.19.0",
-    "typescript": "3.6.2"
+    "tslint": "5.20.0",
+    "typescript": "3.6.3"
   }
 }
