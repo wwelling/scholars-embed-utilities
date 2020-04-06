@@ -100,6 +100,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     });
 
     registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
+        let positionsClone = positions.slice();
         const positionSorter = (labelCheck) => {
             return (a, b) => {
                 if (a.label === labelCheck) {
@@ -110,11 +111,11 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
                 return 0;
             };
         };
-        positions = positions.sort(positionSorter(hrJobTitle));
+        positionsClone = positionsClone.sort(positionSorter(hrJobTitle));
         let out = '';
-        for (let i = positions.length - 1; i >= 0; i--) {
-            if (positions.hasOwnProperty(i)) {
-                out += options.fn(positions[i]);
+        for (let i = positionsClone.length - 1; i >= 0; i--) {
+            if (positionsClone.hasOwnProperty(i)) {
+                out += options.fn(positionsClone[i]);
             }
         }
         return out;

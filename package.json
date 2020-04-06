@@ -1,6 +1,6 @@
 {
   "name": "scholars-embed-utilities",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Embed utilities for Scholars Discovery UI clients",
   "private": false,
   "main": "lib/index.js",
