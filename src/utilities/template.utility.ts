@@ -112,7 +112,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         };
         positions = positions.sort(positionSorter(hrJobTitle));
         let out = '';
-        for (const i in positions) {
+        for (const i = positions.length - 1; i >= 0; i--) {
             if (positions.hasOwnProperty(i)) {
                 out += options.fn(positions[i]);
             }
