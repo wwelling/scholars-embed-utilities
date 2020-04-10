@@ -67,7 +67,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
 
     registerHelper('workByStudent', (workByStudent, options) => {
         if (workByStudent.label) {
-            const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/);
+            const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral|Capstone].*\.$)/);
             if (parts) {
                 if (parts.length > 1) {
                     workByStudent.authorAndDate = parts[1];
