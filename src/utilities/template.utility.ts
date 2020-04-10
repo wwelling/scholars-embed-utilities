@@ -143,6 +143,26 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
+    registerHelper('tags', (taggable, options) => {
+        const tags = [];
+        for (const i in taggable) {
+            if (taggable.hasOwnProperty(i) && taggable[i].tags) {
+                for (const j in taggable[i].tags) {
+                    if (taggable[i].tags.hasOwnProperty(j) && tags.indexOf(taggable[i].tags[j]) < 0) {
+                        tags.push(taggable[i].tags[j]);
+                    }
+                }
+            }
+        }
+        let out = '';
+        for (const i in tags) {
+            if (tags.hasOwnProperty(i)) {
+                out += options.fn(tags[i]);
+            }
+        }
+        return out;
+    });
+
     registerHelper('sectionPage', (resources, page, options) => {
         const pageStart = (page.number - 1) * page.size;
         const pageEnd = pageStart + page.size;
