@@ -63,6 +63,27 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
+    registerHelper('snippet', (snippet, value) => {
+        if (snippet !== undefined) {
+            if (snippet.length < (value !== undefined ? value.length : 80)) {
+                snippet = snippet + ' ...';
+            }
+            if (snippet[0] === ' ') {
+                snippet = '...' + snippet;
+            }
+        }
+        return snippet;
+    });
+
+    registerHelper('truncate', (value, length) => {
+        if (value !== undefined) {
+            if (value.length > length !== undefined ? length : 80) {
+                value = value.substring(0, length - 1) + ' ...';
+            }
+        }
+        return value;
+    });
+
     registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
 
     registerHelper('workByStudent', (workByStudent, options) => {
