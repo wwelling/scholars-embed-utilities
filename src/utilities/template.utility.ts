@@ -189,7 +189,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('hasTags', (taggable, options) => {
+    registerHelper('hasTags', function (taggable, options) {
         const tags = getTags(taggable);
         if (tags.length > 0) {
             return options.fn(this);
