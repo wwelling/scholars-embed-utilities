@@ -41,6 +41,20 @@ const getParsedTemplateFunction = (template: string, additionalContext: any = {}
     return getTemplateFunction(template, additionalContext);
 };
 
+const getTags = (taggable: any): any[] => {
+    const tags = [];
+    for (const i in taggable) {
+        if (taggable.hasOwnProperty(i) && taggable[i].tags) {
+            for (const j in taggable[i].tags) {
+                if (taggable[i].tags.hasOwnProperty(j) && tags.indexOf(taggable[i].tags[j]) < 0) {
+                    tags.push(taggable[i].tags[j]);
+                }
+            }
+        }
+    }
+    return tags;
+}
+
 const initializeTemplateHelpers = (mapping: any = {}) => {
     registerHelper('formalize', (value) => formalize(value, mapping));
 
@@ -68,7 +82,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
             if (snippet.length < (value !== undefined ? value.length : 80)) {
                 snippet = snippet + ' ...';
             }
-            if (snippet[0] === ' ') {
+            if (snippet.substring(0, 5) !== value.substring(0, 5) && snippet.indexOf('<') >= 5) {
                 snippet = '...' + snippet;
             }
         }
@@ -165,16 +179,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     });
 
     registerHelper('tags', (taggable, options) => {
-        const tags = [];
-        for (const i in taggable) {
-            if (taggable.hasOwnProperty(i) && taggable[i].tags) {
-                for (const j in taggable[i].tags) {
-                    if (taggable[i].tags.hasOwnProperty(j) && tags.indexOf(taggable[i].tags[j]) < 0) {
-                        tags.push(taggable[i].tags[j]);
-                    }
-                }
-            }
-        }
+        const tags = getTags(taggable);
         let out = '';
         for (const i in tags) {
             if (tags.hasOwnProperty(i)) {
@@ -182,6 +187,15 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
             }
         }
         return out;
+    });
+
+    registerHelper('hasTags', (taggable, options) => {
+        const tags = getTags(taggable);
+        if (tags.length > 0) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
     });
 
     registerHelper('sectionPage', (resources, page, options) => {
