@@ -23,6 +23,10 @@ export const formalize = (input: string | string[], mapping: any = {}) => {
 
         .replace(/([A-Z]{2,})([0-9]{2,})/g, '$1 $2')
         .replace(/([0-9]{2,})([A-Z]{2,})/g, '$1 $2')
+
+        .replace('_nested_facets', '')
+        .replace('_facets', '')
+
         .replace(/^./, (match) => match.toUpperCase())
         .trim() : '';
 };
