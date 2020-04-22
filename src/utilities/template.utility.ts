@@ -55,6 +55,21 @@ const getTags = (taggable: any): any[] => {
     return tags;
 }
 
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+]
+
 const initializeTemplateHelpers = (mapping: any = {}) => {
     registerHelper('formalize', (value) => formalize(value, mapping));
 
@@ -73,6 +88,30 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = Number(date.getUTCFullYear());
+        }
+        return value;
+    });
+
+    registerHelper('toLocaleDateString', (value) => {
+        if (value !== undefined) {
+            const date = new Date(value);
+            value = date.toLocaleDateString();
+        }
+        return value;
+    });
+
+    registerHelper('toDateString', (value) => {
+        if (value !== undefined) {
+            const date = new Date(value);
+            value = date.toDateString();
+        }
+        return value;
+    });
+
+    registerHelper('toSimpleDate', (value) => {
+        if (value !== undefined) {
+            const date = new Date(value);
+            value = months[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
         }
         return value;
     });
