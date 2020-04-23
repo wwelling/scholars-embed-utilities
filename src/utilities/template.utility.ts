@@ -262,7 +262,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
             '>': (l, r) => Number(l) > Number(r),
             '<': (l, r) => Number(l) < Number(r),
             '>=': (l, r) => Number(l) >= Number(r),
-            '<=': (l, r) => Number(l) <= Number(r)
+            '<=': (l, r) => Number(l) <= Number(r),
+            '~': (l, r) => l.indexOf(r) >= 0,
+            '!~': (l, r) => l.indexOf(r) < 0
         };
         const result = operators[operator](leftOperand, rightOperand);
         if (result) {
