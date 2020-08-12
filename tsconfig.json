@@ -1,14 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2020",
-    "declaration": true,
-    "sourceMap": true,
     "outDir": "lib",
-    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "module": "es2020",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "es5",
     "lib": [
       "es2018",
       "dom"

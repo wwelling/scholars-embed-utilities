@@ -1,4 +1,4 @@
-import { compile, registerHelper } from 'handlebars/dist/handlebars';
+import * as Handlebars from 'handlebars/dist/handlebars';
 
 import { formalize } from './formalize.utility';
 
@@ -18,7 +18,7 @@ const compileTemplate = (template) => {
         const hash = hashCode(template);
         let templateFunction = cache.get(hash);
         if (templateFunction === undefined) {
-            templateFunction = compile(template);
+            templateFunction = Handlebars.compile(template);
             cache.set(hash, templateFunction);
         }
         return templateFunction;
@@ -71,9 +71,9 @@ const months = [
 ]
 
 const initializeTemplateHelpers = (mapping: any = {}) => {
-    registerHelper('formalize', (value) => formalize(value, mapping));
+    Handlebars.registerHelper('formalize', (value) => formalize(value, mapping));
 
-    registerHelper('replace', (value, arg1, arg2) => {
+    Handlebars.registerHelper('replace', (value, arg1, arg2) => {
         if (Array.isArray(value)) {
             const values = [];
             for (const entry of value) {
@@ -84,7 +84,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value.replace(arg1, arg2);
     });
 
-    registerHelper('toYear', (value) => {
+    Handlebars.registerHelper('toYear', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = Number(date.getUTCFullYear());
@@ -92,7 +92,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
-    registerHelper('toLocaleDateString', (value) => {
+    Handlebars.registerHelper('toLocaleDateString', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = date.toLocaleDateString();
@@ -100,7 +100,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
-    registerHelper('toDateString', (value) => {
+    Handlebars.registerHelper('toDateString', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = date.toDateString();
@@ -108,7 +108,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
-    registerHelper('toSimpleDate', (value) => {
+    Handlebars.registerHelper('toSimpleDate', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = months[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
@@ -116,7 +116,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
-    registerHelper('snippet', (snippet, value) => {
+    Handlebars.registerHelper('snippet', (snippet, value) => {
         if (snippet !== undefined) {
             if (snippet.length < (value !== undefined ? value.length : 80)) {
                 snippet = snippet + ' ...';
@@ -128,7 +128,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return snippet;
     });
 
-    registerHelper('truncate', (value, length) => {
+    Handlebars.registerHelper('truncate', (value, length) => {
         if (value !== undefined) {
             if (value.length > length !== undefined ? length : 80) {
                 value = value.substring(0, length - 1) + ' ...';
@@ -137,9 +137,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
-    registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
+    Handlebars.registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
 
-    registerHelper('workByStudent', (workByStudent, options) => {
+    Handlebars.registerHelper('workByStudent', (workByStudent, options) => {
         if (workByStudent.label) {
             const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral|Capstone].*\.$)/);
             if (parts) {
@@ -160,7 +160,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return options.fn(workByStudent);
     });
 
-    registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
+    Handlebars.registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
         const positionsCount = positions.length;
         let organizationForTitle;
         for (let i = 0; i < positionsCount; i++) {
@@ -173,7 +173,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return options.fn(organizationForTitle);
     });
 
-    registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
+    Handlebars.registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
         let positionsClone = positions.slice();
         const positionSorter = (labelCheck) => {
             return (a, b) => {
@@ -195,7 +195,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('eachSorted', (resources, field, direction, isDate, options) => {
+    Handlebars.registerHelper('eachSorted', (resources, field, direction, isDate, options) => {
         direction = (direction && direction.toLowerCase() === 'asc') ? [1, -1] : [-1, 1];
         resources = resources.sort((r1, r2) => {
             const v1 = isDate ? new Date(r1[field]) : r1[field];
@@ -217,7 +217,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('tags', (taggable, options) => {
+    Handlebars.registerHelper('tags', (taggable, options) => {
         const tags = getTags(taggable);
         let out = '';
         for (const i in tags) {
@@ -228,7 +228,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('hasTags', function (taggable, options) {
+    Handlebars.registerHelper('hasTags', function (taggable, options) {
         const tags = getTags(taggable);
         if (tags.length > 0) {
             return options.fn(this);
@@ -237,7 +237,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         }
     });
 
-    registerHelper('sectionPage', (resources, page, options) => {
+    Handlebars.registerHelper('sectionPage', (resources, page, options) => {
         const pageStart = (page.number - 1) * page.size;
         const pageEnd = pageStart + page.size;
         resources = resources.slice(pageStart, pageEnd);
@@ -250,12 +250,12 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
-    registerHelper('sectionItem', (resource, section) => {
-        const renderSection = compile(section.template);
+    Handlebars.registerHelper('sectionItem', (resource, section) => {
+        const renderSection = Handlebars.compile(section.template);
         return renderSection(resource);
     });
 
-    registerHelper('when', function (leftOperand, operator, rightOperand, options) {
+    Handlebars.registerHelper('when', function (leftOperand, operator, rightOperand, options) {
         const operators = {
             '==': (l, r) => l === r,
             '!=': (l, r) => l !== r,
@@ -274,9 +274,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         }
     });
 
-    registerHelper('increment', (value) => Number(value) + 1);
+    Handlebars.registerHelper('increment', (value) => Number(value) + 1);
 
-    registerHelper('decrement', (value) => Number(value) - 1);
+    Handlebars.registerHelper('decrement', (value) => Number(value) - 1);
 };
 
 export {
