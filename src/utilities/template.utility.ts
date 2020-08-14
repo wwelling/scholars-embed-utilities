@@ -111,7 +111,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('toSimpleDate', (value) => {
         if (value !== undefined) {
             const date = new Date(value);
-            value = months[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
+            value = months[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getFullYear();
         }
         return value;
     });
