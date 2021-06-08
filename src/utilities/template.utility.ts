@@ -23,7 +23,7 @@ const compileTemplate = (template) => {
         }
         return templateFunction;
     }
-    return (context) => '';
+    return () => '';
 };
 
 const renderTemplate = (template, resource) => {
@@ -53,7 +53,7 @@ const getTags = (taggable: any): any[] => {
         }
     }
     return tags;
-}
+};
 
 const months = [
     'January',
@@ -68,7 +68,7 @@ const months = [
     'October',
     'November',
     'December'
-]
+];
 
 const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('formalize', (value) => formalize(value, mapping));
@@ -235,6 +235,20 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         } else {
             return options.inverse(this);
         }
+    });
+
+    Handlebars.registerHelper('toUNGoal', (value) => {
+        if (value !== undefined) {
+            return 'SDG ' + value.split(' ')[0];
+        }
+        return value;
+    });
+
+    Handlebars.registerHelper('toUNGoalBadge', (value) => {
+        if (value !== undefined) {
+            return 'badge-sdg-' + value.split(' ')[0];
+        }
+        return value;
     });
 
     Handlebars.registerHelper('sectionPage', (resources, page, options) => {
