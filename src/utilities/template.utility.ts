@@ -52,6 +52,7 @@ const getTags = (taggable: any): any[] => {
             }
         }
     }
+    tags.sort((t1, t2) => Number(t1.split(' ')[0]) > Number(t2.split(' ')[0]) ? 1 : -1);
     return tags;
 };
 
