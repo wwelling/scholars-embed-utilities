@@ -74,6 +74,14 @@ const months = [
 const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('formalize', (value) => formalize(value, mapping));
 
+    Handlebars.registerHelper("inArray", (array, value, options) => {
+        // fallback...
+        array = (array instanceof Array) ? array : [array];
+        return (array.indexOf(value) >= 0)
+            ? options.fn(this)
+            : options.inverse(this);
+    });
+
     Handlebars.registerHelper('replace', (value, arg1, arg2) => {
         if (Array.isArray(value)) {
             const values = [];
