@@ -2,6 +2,9 @@
   "name": "scholars-embed-utilities",
   "version": "0.3.3",
   "description": "Embed utilities for Scholars Discovery UI clients",
+  "keywords": [],
+  "author": "William Welling <wwelling@library.tamu.edu>",
+  "license": "MIT",
   "private": false,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,9 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/vivo-community/scholars-embed-utilities.git"
   },
-  "keywords": [],
-  "author": "William Welling <wwelling@library.tamu.edu>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/vivo-community/scholars-embed-utilities.git/issues"
   },
