@@ -1,8 +1,11 @@
 export const formalize = (input: string | string[], mapping: any = {}) => {
     if (Array.isArray(input)) {
         const formalValues = [];
-        for (const entry of input) {
-            formalValues.push(formalize(entry, mapping));
+        for (let i = 0; i <= input.length; i++) {
+            const entry = input[i]
+            if (entry !== undefined) {
+                formalValues.push(formalize(entry, mapping));
+            }
         }
         return formalValues;
     }

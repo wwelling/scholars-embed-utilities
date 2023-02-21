@@ -71,6 +71,21 @@ const months = [
     'December'
 ];
 
+const format = (intervalTerminal: any) => {
+    const { label, precision } = intervalTerminal;
+    const date = new Date(label);
+    const year = Number(date.getUTCFullYear());
+    const month = Number(date.getUTCMonth());
+    const day = Number(date.getUTCDate());
+    const time = date.getTime();
+    switch (precision) {
+        case 'yearPrecision': return `${year}`;
+        case 'yearMonthPrecision': return `${year}, ${months[month]}`;
+        case 'yearMonthDayPrecision': return `${year}, ${months[month]} ${day}`;
+        case 'yearMonthDayTimePrecision': return `${year}, ${months[month]} ${day} @ ${time}`;
+    }
+};
+
 const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('formalize', (value) => formalize(value, mapping));
 
@@ -85,8 +100,11 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('replace', (value, arg1, arg2) => {
         if (Array.isArray(value)) {
             const values = [];
-            for (const entry of value) {
-                values.push(entry.replace(arg1, arg2));
+            for (let i = 0; i <= value.length; i++) {
+                const entry = value[i]
+                if (entry !== undefined) {
+                    values.push(entry.replace(arg1, arg2));
+                }
             }
             return values;
         }
@@ -97,6 +115,25 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         if (value !== undefined) {
             const date = new Date(value);
             value = Number(date.getUTCFullYear());
+        }
+        return value;
+    });
+
+    Handlebars.registerHelper('toDefinedPrecision', (dateTimeInterval) => {
+        let value = undefined;
+
+        if (dateTimeInterval) {
+
+            if (dateTimeInterval && dateTimeInterval.start) {
+                const start = format(dateTimeInterval.start as { label: string, precision: string });
+                value = start;
+            }
+
+            if (dateTimeInterval && dateTimeInterval.start && dateTimeInterval.end) {
+                const end = format(dateTimeInterval.end as { label: string, precision: string });
+                value += ` - ${end}`
+            }
+
         }
         return value;
     });
