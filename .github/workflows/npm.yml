@@ -21,7 +21,7 @@ jobs:
         cache: 'npm'
 
     - name: Install Dependencies
-      run: npm install --network-timeout 3600000
+      run: npm install
 
     - name: Run Build
       run: npm run build
