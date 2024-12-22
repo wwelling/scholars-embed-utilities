@@ -3,9 +3,9 @@
   "version": "0.3.6",
   "description": "Embed utilities for Scholars Discovery UI clients",
   "keywords": [],
+  "private": false,
   "license": "MIT",
   "contributors": [],
-  "private": false,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
