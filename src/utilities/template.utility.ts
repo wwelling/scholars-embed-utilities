@@ -211,7 +211,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         let organizationForTitle;
         for (let i = 0; i < positionsCount; i++) {
             const position = positions[i];
-            if (position.label.startsWith(preferredTitle)) {
+            if (position.organizations && position.organizations.length > 0 && position.label.startsWith(preferredTitle)) {
                 organizationForTitle = position.organizations[0];
                 break;
             }
